@@ -14,7 +14,6 @@
         <v-row class="mb-1 mt-4" align="center">
           <v-col cols="12" md="5">
             <v-text-field
-                v-model="data.expenseNameInput"
                 label="Expense Name"
                 hide-details="auto"
                 class="expense-input"
@@ -22,7 +21,6 @@
           </v-col>
           <v-col cols="12" md="5">
             <v-text-field
-                v-model="data.expenseAmountInput"
                 label="Amount"
                 hide-details="auto"
                 class="expense-input"
@@ -47,6 +45,25 @@
       <v-col cols="2">Actions</v-col>
     </v-row>
     <v-row class="noData" align-content="center">No Expenses</v-row>
+    <v-row
+        class="noData"
+        align-content="center"
+    >
+      <v-col cols="2">{{  data.expenses[0].description }}</v-col>
+      <v-col cols="2">{{  data.expenses[0].value }}</v-col>
+      <v-col cols="2">
+        <v-hover>
+          <template v-slot:default="{ isHovering, props }">
+            <v-icon
+                v-bind="props"
+                :color="isHovering ? 'red-accent-2' : 'default'"
+            >
+              mdi-delete
+            </v-icon>
+          </template>
+        </v-hover>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -64,7 +81,8 @@ const data = reactive({
   expenseAmountInput: null,
   expenses: [
     {
-      name: 'Rent',
+      id: 1,
+      description: 'Rent',
       value: '1000'
     }
   ]

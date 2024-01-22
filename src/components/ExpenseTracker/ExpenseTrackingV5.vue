@@ -60,16 +60,30 @@
         class="noData"
         align-content="center"
     >
-      <v-col cols="2">{{  data.expenses[0].description }}</v-col>
-      <v-col cols="2">{{  data.expenses[0].value }}</v-col>
-      <v-col cols="2"></v-col>
+      <v-col cols="2">{{ data.expenses[0].description }}</v-col>
+      <v-col cols="2">{{ data.expenses[0].value }}</v-col>
+      <v-col cols="2">
+        <v-hover>
+          <template v-slot:default="{ isHovering, props }">
+            <v-icon
+                v-bind="props"
+                :color="isHovering ? 'red-accent-2' : 'default'"
+            >
+              mdi-delete
+            </v-icon>
+          </template>
+        </v-hover>
+      </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script setup lang="ts">
 
-// TODO 5: using v-for display all expenses in the expenses array
+// Todo 5: bind the inputs to the corresponding data properties
+// TODO 5: create a add method used by the add button
+// Todo 5: create a delete method used by a delete button. Try passing in a param to the method and
+//  delete based on the id. You can use data.expenses[0].id passed through for now
 
 import {computed, reactive} from 'vue';
 
@@ -104,7 +118,7 @@ const addExpenseDisabled = computed(() => {
 </script>
 
 <style scoped>
-.headers{
+.headers {
   font-size: 1.2rem;
   border-bottom: 2px solid white;
   padding-bottom: 0px;

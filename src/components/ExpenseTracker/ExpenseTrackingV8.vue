@@ -46,9 +46,9 @@
       </v-container>
     </v-row>
     <v-row class="headers">
-      <v-col cols="2">Description</v-col>
-      <v-col cols="2">Amount</v-col>
-      <v-col cols="2">Actions</v-col>
+      <v-col>Description</v-col>
+      <v-col>Amount</v-col>
+      <v-col>Actions</v-col>
     </v-row>
     <v-row
         v-if="data.expenses.length==0"
@@ -73,7 +73,6 @@
 
 // TODO 8: Add watchers to the expenseNameInput to alert when the length is above a certain amount of characters
 // TODO 8: Add watchers to the expenseAmount to alert when the amount is larger than the total left
-// TODO 8: If total left goes into negative display it as red
 
 import {computed, reactive} from 'vue';
 import ExpenseRow from "@/components/ExpenseTracker/ExpenseRow.vue";

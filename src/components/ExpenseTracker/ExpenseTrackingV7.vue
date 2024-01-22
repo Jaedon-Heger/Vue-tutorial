@@ -87,8 +87,8 @@
 
 <script setup lang="ts">
 
-// TODO 7: extract v-row into a component called ExpenseRow
-// Todo 7: update the component to emit the delete event up
+// TODO 7: extract v-row into a custom component that takes a prop for the data
+// Todo 7: update the component to emit the delete event up to the parent component to do the processing
 
 import {computed, reactive} from 'vue';
 

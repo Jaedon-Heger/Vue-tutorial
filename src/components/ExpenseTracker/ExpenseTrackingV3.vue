@@ -14,7 +14,6 @@
         <v-row class="mb-1 mt-4" align="center">
           <v-col cols="12" md="5">
             <v-text-field
-                v-model="data.expenseNameInput"
                 label="Expense Name"
                 hide-details="auto"
                 class="expense-input"
@@ -22,7 +21,6 @@
           </v-col>
           <v-col cols="12" md="5">
             <v-text-field
-                v-model="data.expenseAmountInput"
                 label="Amount"
                 hide-details="auto"
                 class="expense-input"

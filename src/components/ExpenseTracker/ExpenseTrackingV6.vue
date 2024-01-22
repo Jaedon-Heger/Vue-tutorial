@@ -36,6 +36,7 @@
                 dark
                 color="deep-purple accent-1"
                 :disabled="addExpenseDisabled"
+                @click="addExpense"
             >
               Add expense
             </v-btn>
@@ -55,26 +56,33 @@
     >
       No Expenses
     </v-row>
-    <template v-else>
-      <v-row
-          v-for="expense in data.expenses"
-          :key="expense.id"
-          class="noData"
-          align-content="center"
-      >
-        <v-col cols="2">{{ expense.description }}</v-col>
-        <v-col cols="2">{{ expense.value }}</v-col>
-        <v-col cols="2"></v-col>
-      </v-row>
-    </template>
+    <v-row
+        v-else
+        class="noData"
+        align-content="center"
+    >
+      <v-col cols="2">{{ data.expenses[0].description }}</v-col>
+      <v-col cols="2">{{ data.expenses[0].value }}</v-col>
+      <v-col cols="2">
+        <v-hover>
+          <template v-slot:default="{ isHovering, props }">
+            <v-icon
+                v-bind="props"
+                :color="isHovering ? 'red-accent-2' : 'default'"
+                @click="deleteExpense(data.expenses[0].id)"
+            >
+              mdi-delete
+            </v-icon>
+          </template>
+        </v-hover>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script setup lang="ts">
 
-// Todo 6: create a delete button that you can add to actions column
-// TODO 6: create a add method used by the add button
-// Todo 6: create a delete method used by a delete button that you can add to actions
+// TODO 6: using v-for display all expenses in the expenses array
 
 import {computed, reactive} from 'vue';
 
@@ -106,10 +114,25 @@ const addExpenseDisabled = computed(() => {
   return !data.expenseNameInput || !data.expenseAmountInput;
 });
 
+
+const addExpense = () => {
+  data.expenses.push({
+    id: data.expenses.length,
+    description: data.expenseNameInput,
+    value: data.expenseAmountInput
+  });
+  data.expenseNameInput = null;
+  data.expenseAmountInput = null;
+}
+
+const deleteExpense = (id) => {
+  data.expenses = data.expenses.filter(expense => expense.id !== id);
+}
+
 </script>
 
 <style scoped>
-.headers {
+.headers{
   font-size: 1.2rem;
   border-bottom: 2px solid white;
   padding-bottom: 0px;

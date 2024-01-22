@@ -85,6 +85,7 @@ const MAX_DESCRIPTION_LENGTH = 30;
 const MAX_DESCRIPTION_MESSAGE = `You can only input ${MAX_DESCRIPTION_LENGTH} characters`;
 const MAX_AMOUNT_EXCEEDED_MESSAGE = `Spending on this expense will put you in the red`;
 
+// TODO 11: Focus on expense description field on run
 
 const model = defineModel()
 

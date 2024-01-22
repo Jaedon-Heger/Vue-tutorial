@@ -42,7 +42,6 @@ import {reactive} from 'vue';
 
 // Todo 2: set color and prepend icon prop for Add expense button
 // Todo 2: bind addExpenseDisabled to the button
-// Todo 2: bind inputs to reactive props
 
 const data = reactive({
   totalIncome: 1000,
