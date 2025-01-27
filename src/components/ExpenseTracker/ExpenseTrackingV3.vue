@@ -3,7 +3,7 @@
     <v-row>
       <v-container class="gradiantBorderBottom gradiantBorderBottomFullWidth">
         <v-row>
-          <h3 class="ml-3">Total Income: {{ data.totalExpense }}</h3>
+          <h3 class="ml-3">Total Income: {{ data.totalIncome }}</h3>
         </v-row>
         <v-row>
           <h3 class="ml-3">Total Expense: {{ data.totalExpense }}</h3>
