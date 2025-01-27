@@ -85,24 +85,25 @@
 // TODO 6: using v-for display all expenses in the expenses array
 
 import {computed, reactive} from 'vue';
+import type { ExpenseData } from '@/models/ExpenseData'
 
 const data = reactive({
   totalIncome: 1000,
   addExpenseDisabled: false,
-  expenseNameInput: null,
+  expenseNameInput: '',
   expenseAmountInput: null,
   expenses: [
     {
       id: 0,
       description: 'Rent',
-      value: '1000'
+      value: 1000
     }
-  ]
+  ] as ExpenseData[]
 });
 
 const totalExpense = computed(() => {
   return data.expenses.reduce((total, expense) => {
-    return total + parseInt(expense.value);
+    return total + expense.value;
   }, 0);
 });
 
@@ -114,18 +115,25 @@ const addExpenseDisabled = computed(() => {
   return !data.expenseNameInput || !data.expenseAmountInput;
 });
 
+const getMaxId = () => {
+  return data.expenses.length > 0 ? Math.max(...data.expenses.map(expense => expense.id)) : 0;
+};
 
 const addExpense = () => {
+  if (!data.expenseNameInput) {
+    return;
+  }
+
   data.expenses.push({
-    id: data.expenses.length,
+    id: getMaxId() + 1,
     description: data.expenseNameInput,
-    value: data.expenseAmountInput
+    value: data.expenseAmountInput ? parseInt(data.expenseAmountInput) : 0
   });
-  data.expenseNameInput = null;
+  data.expenseNameInput = '';
   data.expenseAmountInput = null;
 }
 
-const deleteExpense = (id) => {
+const deleteExpense = (id: Number) => {
   data.expenses = data.expenses.filter(expense => expense.id !== id);
 }
 

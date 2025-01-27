@@ -86,24 +86,25 @@
 //  delete based on the id. You can use data.expenses[0].id passed through for now
 
 import {computed, reactive} from 'vue';
+import type { ExpenseData } from '@/models/ExpenseData'
 
 const data = reactive({
   totalIncome: 1000,
   addExpenseDisabled: false,
-  expenseNameInput: null,
+  expenseNameInput: '',
   expenseAmountInput: null,
   expenses: [
     {
       id: 0,
       description: 'Rent',
-      value: '1000'
+      value: 1000
     }
-  ]
+  ] as ExpenseData[]
 });
 
 const totalExpense = computed(() => {
   return data.expenses.reduce((total, expense) => {
-    return total + parseInt(expense.value);
+    return total + expense.value;
   }, 0);
 });
 

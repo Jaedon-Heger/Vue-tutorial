@@ -84,6 +84,7 @@
 import {computed, reactive, watch} from 'vue';
 import ExpenseRow from "@/components/ExpenseTracker/ExpenseRow.vue";
 import ExpenseButton from "@/components/ExpenseTracker/ExpenseButton.vue";
+import type { ExpenseData } from '@/models/ExpenseData'
 
 const MAX_DESCRIPTION_LENGTH = 30;
 const MAX_DESCRIPTION_MESSAGE = `You can only input ${MAX_DESCRIPTION_LENGTH} characters`;
@@ -93,14 +94,14 @@ const MAX_AMOUNT_EXCEEDED_MESSAGE = `Spending on this expense will put you in th
 const data = reactive({
   totalIncome: 1000,
   addExpenseDisabled: false,
-  expenseNameInput: null,
+  expenseNameInput: '',
   expenseAmountInput: null,
-  expenses: []
+  expenses: [] as ExpenseData[]
 });
 
 const totalExpense = computed(() => {
   return data.expenses.reduce((total, expense) => {
-    return total + parseInt(expense.value);
+    return total + expense.value;
   }, 0);
 });
 
@@ -112,35 +113,41 @@ const addExpenseDisabled = computed(() => {
   return !data.expenseNameInput || !data.expenseAmountInput;
 });
 
+const getMaxId = () => {
+  return data.expenses.length > 0 ? Math.max(...data.expenses.map(expense => expense.id)) : 0;
+};
+
 const addExpense = () => {
+  if (!data.expenseNameInput) {
+    return;
+  }
+
   data.expenses.push({
-    id: data.expenses.length,
+    id: getMaxId() + 1,
     description: data.expenseNameInput,
-    value: data.expenseAmountInput
+    value: data.expenseAmountInput ? parseInt(data.expenseAmountInput) : 0
   });
-  data.expenseNameInput = null;
+  data.expenseNameInput = '';
   data.expenseAmountInput = null;
 }
 
-const deleteExpense = (id) => {
+
+const deleteExpense = (id: Number) => {
   data.expenses = data.expenses.filter(expense => expense.id !== id);
 }
 
-
 watch(() => data.expenseAmountInput, (newVal) => {
-
-  if (newVal > totalLeft.value) {
+  if (newVal || 0 > totalLeft.value) {
     alert(MAX_AMOUNT_EXCEEDED_MESSAGE)
   }
 })
 
-watch(() => data.expenseNameInput?.length, (newVal) => {
-  if (newVal > MAX_DESCRIPTION_LENGTH) {
+watch(() => (data.expenseNameInput as String | null)?.length, (newVal) => {
+  if (newVal || 0 > MAX_DESCRIPTION_LENGTH) {
     alert(MAX_DESCRIPTION_MESSAGE)
     data.expenseNameInput = data.expenseNameInput.slice(0, MAX_DESCRIPTION_LENGTH)
   }
 })
-
 </script>
 
 <style scoped>

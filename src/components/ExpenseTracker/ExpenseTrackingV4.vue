@@ -49,8 +49,8 @@
         class="noData"
         align-content="center"
     >
-      <v-col cols="2">{{  data.expenses[0].description }}</v-col>
-      <v-col cols="2">{{  data.expenses[0].value }}</v-col>
+      <v-col cols="2">Not bound rent</v-col>
+      <v-col cols="2">10</v-col>
       <v-col cols="2">
         <v-hover>
           <template v-slot:default="{ isHovering, props }">
@@ -73,24 +73,25 @@
 // TODO 4: create a v-row if expenses length is greater and populate it with the first expense data
 
 import {computed, reactive} from 'vue';
+import type { ExpenseData } from '@/models/ExpenseData'
 
 const data = reactive({
   totalIncome: 1000,
   addExpenseDisabled: false,
-  expenseNameInput: null,
+  expenseNameInput: '',
   expenseAmountInput: null,
   expenses: [
     {
-      id: 1,
+      id: 0,
       description: 'Rent',
-      value: '1000'
+      value: 1000
     }
-  ]
+  ] as ExpenseData[]
 });
 
 const totalExpense = computed(() => {
   return data.expenses.reduce((total, expense) => {
-    return total + parseInt(expense.value);
+    return total + expense.value;
   }, 0);
 });
 

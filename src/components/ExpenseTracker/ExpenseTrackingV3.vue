@@ -54,7 +54,7 @@ const data = reactive({
   totalExpense: 0,
   totalLeft: 0,
   addExpenseDisabled: false,
-  expenseNameInput: null,
+  expenseNameInput: '',
   expenseAmountInput: null,
   expenses: [
     {
