@@ -1,4 +1,4 @@
-# 2024-demo-app
+# 2025-demo-app
 
 This template should help get you started developing with Vue 3 in Vite.
 
