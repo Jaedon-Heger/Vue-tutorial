@@ -33,7 +33,7 @@
             />
           </v-col>
           <v-col>
-            <ExpenseButton :disabled="addExpenseDisabled">
+            <ExpenseButton :disabled="addExpenseDisabled" @click="addExpense">
               Add Expense
             </ExpenseButton>
           </v-col>
@@ -69,7 +69,7 @@
     </v-row>
 
     <v-row class="mt-10">
-      <ExpenseButton :disabled="data.expenses.length < 1">
+      <ExpenseButton :disabled="data.expenses.length < 1" @click="submit">
         Submit Expenses
       </ExpenseButton>
     </v-row>
@@ -118,10 +118,6 @@ const getMaxId = () => {
 };
 
 const addExpense = () => {
-  if (!data.expenseNameInput) {
-    return;
-  }
-
   data.expenses.push({
     id: getMaxId() + 1,
     description: data.expenseNameInput,
@@ -136,14 +132,18 @@ const deleteExpense = (id: Number) => {
   data.expenses = data.expenses.filter(expense => expense.id !== id);
 }
 
+const submit = () => {
+  alert('Expenses Submitted')
+}
+
 watch(() => data.expenseAmountInput, (newVal) => {
-  if (newVal || 0 > totalLeft.value) {
+  if (newVal && newVal > totalLeft.value) {
     alert(MAX_AMOUNT_EXCEEDED_MESSAGE)
   }
 })
 
 watch(() => (data.expenseNameInput as String | null)?.length, (newVal) => {
-  if (newVal || 0 > MAX_DESCRIPTION_LENGTH) {
+  if (newVal && newVal > MAX_DESCRIPTION_LENGTH) {
     alert(MAX_DESCRIPTION_MESSAGE)
     data.expenseNameInput = data.expenseNameInput.slice(0, MAX_DESCRIPTION_LENGTH)
   }

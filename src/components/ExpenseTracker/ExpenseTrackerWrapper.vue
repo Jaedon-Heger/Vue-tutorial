@@ -7,15 +7,15 @@
             <h1>Expense Tracker</h1>
           </v-col>
           <v-spacer/>
-<!--          <v-col v-if="data.version>10" cols="1">-->
-<!--            <v-progress-circular-->
-<!--                class="progress"-->
-<!--                :color="getProgressLeftColor()"-->
-<!--                :model-value="data.totalPercentageLeft"-->
-<!--                :size="43"-->
-<!--                :width="7"-->
-<!--            />-->
-<!--          </v-col>-->
+          <v-col v-if="data.version>10" cols="1">
+            <v-progress-circular
+                class="progress"
+                :color="getProgressLeftColor()"
+                :model-value="data.totalPercentageLeft"
+                :size="43"
+                :width="7"
+            />
+          </v-col>
         </v-row>
       </v-container>
     </v-card-title>
@@ -58,15 +58,15 @@ import { reactive } from 'vue'
 // Todo 1: Create a sub header for the version using the prop
 // Todo 1: uncomment the template code and corresponding imports
 //
-// const getProgressLeftColor = () => {
-//   if(data.totalPercentageLeft > 50) return 'green'
-//   if(data.totalPercentageLeft > 25) return 'orange'
-//   return 'red'
-// }
+const getProgressLeftColor = () => {
+  if(data.totalPercentageLeft > 50) return 'green'
+  if(data.totalPercentageLeft > 25) return 'orange'
+  return 'red'
+}
 
 const data = reactive({
-  version: 10,
-  totalPercentageLeft: 0,
+  version: 1,
+  totalPercentageLeft: 100,
 });
 
 

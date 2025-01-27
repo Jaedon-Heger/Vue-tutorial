@@ -10,9 +10,8 @@
 </template>
 <script setup lang="ts">
 
-
 const emit = defineEmits(['click']);
-const disabled = defineProps('disabled');
+const { disabled } = defineProps(['disabled']);
 
 const clickedButton = () => {
   emit('click');

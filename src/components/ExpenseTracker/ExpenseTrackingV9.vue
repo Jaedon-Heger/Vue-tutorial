@@ -129,14 +129,12 @@ const addExpense = () => {
   data.expenseAmountInput = null;
 }
 
-
 const deleteExpense = (id: Number) => {
   data.expenses = data.expenses.filter(expense => expense.id !== id);
 }
 
-
 watch(() => data.expenseAmountInput, (newVal) => {
-  if (newVal || 0 > totalLeft.value) {
+  if (newVal && newVal > totalLeft.value) {
     alert(MAX_AMOUNT_EXCEEDED_MESSAGE)
   }
 })
